@@ -1,9 +1,8 @@
 ############################### Mathematical functions for computations, interpolations and root finding ############################
 from scipy.fft import fftn, ifftn
-from gen_params import *
+from .gen_params import *
 
-def surf_dens(sigma, f, x1, x2, xc):
-    return (sigma**2)/(2*G)*np.sqrt(f)/np.sqrt(x1**2 + (f*x2)**2 + xc**2)
+
 def poisson(field, x1, x2, dx1, dx2):                                       # Solves the Poisson equation using Fourier Transform and zero padding
     N1 = np.shape(field)[0] 
     N2 = np.shape(field)[0]
@@ -96,13 +95,13 @@ def interpolate2(x_inter, y_inter, field, x, y, dx1, dx2):                  # Bi
     return np.matmul(Y, np.matmul(A, X))                                # Return interpolation
 def root_find(p0,fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Newton's method for finding zeros
     k = 0                                                                   # Security parameter for maximum iteration
-    epsilon = 0.00001                                                        # Resolution for the 0's of the function
+    epsilon = 0.00000001                                                        # Resolution for the 0's of the function
     Jac = np.zeros((2,2))                                                   # Initialise the Jacobian
     F = np.ones((2,1))                                                      # Initialise the function
     p0 = np.array(p0)                                                       # Initialise the initial guess
     while((np.linalg.norm(F) >= epsilon)):                                  # Start iteration using the norm of the function as a criteria
         if(k <= 1000):                                                     # Set up the maximum iteration
-            if((p0[0]<=X1[-1,0]) & (p0[0]>=X1[0,0]) & (p0[1]<=X2[0,-1]) & (p0[1]>=X2[0,0])):
+            if((p0[0]<=np.max(X1)) & (p0[0]>=np.min(X1)) & (p0[1]<=np.max(X2)) & (p0[1]>=np.min(X2))):
                 Jac[0,0] = interpolate2(p0[0], p0[1], Jxx, X1, X2, dx1, dx2)    # Compute the Jacobian at the guess 
                 Jac[0,1] = interpolate2(p0[0], p0[1], Jxy, X1, X2, dx1, dx2) 
                 Jac[1,0] = interpolate2(p0[0], p0[1], Jyx, X1, X2, dx1, dx2) 
@@ -111,9 +110,8 @@ def root_find(p0,fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Ne
                 F[1] = interpolate2(p0[0], p0[1], fy, X1, X2, dx1, dx2) 
                 J_inv = np.linalg.inv(Jac)                                      # Invert the Jacobian
                 p0 = (p0 - np.matmul(F.T, J_inv.T)).flatten()
-                                                        # Compute the next guess
+                print("a")                                                        # Compute the next guess
         else:
-            #    p0 = [None, None]
             break
-        k +=1  
+        k +=1
     return p0                                                               # Return final guess

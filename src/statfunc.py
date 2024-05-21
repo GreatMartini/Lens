@@ -3,6 +3,8 @@ from calculus import *
 from rec_params import *
 from scipy.stats import uniform
 
+def surf_dens(sigma, f, x1, x2, xc):                                        # surface density for the iso potential
+    return (sigma**2)/(2*G)*np.sqrt(f)/np.sqrt(x1**2 + (f*x2)**2 + xc**2)
 def map_source(x1, x2, alpha_1, alpha_2):
     eta1 = x1*D_S/D_L - alpha_1*D_LS
     eta2 = x2*D_S/D_L - alpha_2*D_LS
