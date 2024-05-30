@@ -1,6 +1,6 @@
 import numpy as np
 import h5py
-from gen_params import G, c
+from .gen_params import G, c
 
 lens = h5py.File("../output/Lens1.hdf5", 'r')                                                                  # Open the file
 image = np.array(lens["Image"])                                                                     # We get the image

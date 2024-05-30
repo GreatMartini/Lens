@@ -1,6 +1,6 @@
 ############################## Proper to reconstruction #####################################
-from calculus import *
-from rec_params import *
+from .calculus import *
+from .rec_params import *
 from scipy.stats import uniform
 
 def surf_dens(sigma, f, x1, x2, xc):                                        # surface density for the iso potential

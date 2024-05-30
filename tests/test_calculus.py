@@ -1,4 +1,4 @@
-from Lensing.src.calculus import *
+from src.calculus import *
 
 def test_gradient():
     epsilon = 1

@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-from statfunc import *
+from .statfunc import *
 
 def Metropolis():
     f_0, sigma_0 = 0.5, 0.5                                                                             # Initial choises for the parameters                                                 

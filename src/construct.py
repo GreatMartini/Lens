@@ -1,5 +1,5 @@
 ##################################### Script that creates classes ##################################
-from gen_params import *
+from .gen_params import *
 
 ##################################### Classes: Lens and Sources #####################################
 class source:                                                               # Creates a source

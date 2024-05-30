@@ -1,8 +1,8 @@
 ################################### Script that generates the image data ##################################
-from construct import *
-from calculus import *
+from .construct import *
+from .calculus import *
 import h5py
-
+import matplotlib.pyplot as plt
 
 def Generate(xs0, ys0, Sigma, f, save = True):
     star = source()                                                                                     # Build point source
@@ -16,7 +16,8 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     dx2 = lens1.dx2                                                                                     # Same
     psi = poisson(2*iso, X1, X2, dx1, dx2)                                                              # Delta Psi = 2k = 2(Surface_density/Critical_surface_density)
     alpha_1, alpha_2 = grad(psi, dx1, dx2)
-    X1 = X1[1:-1, 1:-1]                                                                                 # Rescale to the size of the derivative
+    X1 = X1[1:-1, 1:-1] 
+
     X2 = X2[1:-1, 1:-1]
     eq1 = y1 + alpha_1 - X1
     eq2 = y2 + alpha_2 - X2
@@ -28,8 +29,6 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     eq2 = eq2[1:-1, 1:-1]
     g = grad(eq1,dx1,dx2)[0]
 
-    #plt.imshow(eq1)
-    #plt.plot()
     pos = np.argwhere((abs(eq1) <= 0.03) & (abs(eq2) <= 0.03))                                          # Initial guesses for the arguments of the zeros of the lens equation
     zeros1 = X1[pos[:,0], pos[:,1]]                                                                     # We get the positions corresponding to the zeros
     zeros2 = X2[pos[:,0], pos[:,1]]

@@ -110,7 +110,6 @@ def root_find(p0,fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Ne
                 F[1] = interpolate2(p0[0], p0[1], fy, X1, X2, dx1, dx2) 
                 J_inv = np.linalg.inv(Jac)                                      # Invert the Jacobian
                 p0 = (p0 - np.matmul(F.T, J_inv.T)).flatten()
-                print("a")                                                        # Compute the next guess
         else:
             break
         k +=1

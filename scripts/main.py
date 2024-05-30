@@ -1,6 +1,15 @@
-from generate import *
-from reconstruct import *
 import sys
+import os
+sys.path.append("../")
+from src.calculus import *
+from src.construct import *
+from src.gen_params import *
+from src.generate import *
+from src.rec_params import *
+from src.reconstruct import *
+from src.statfunc import *
+
+
 
 print("If you only want to generate new image enter G, if you only want to reconstruct the lens enter R if you want to do both enter GR:")
 sys.argv[0] = input()
