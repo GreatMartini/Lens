@@ -24,7 +24,7 @@ def poisson(field, x1, x2, dx1, dx2):                                       # So
     K_squared = Kx**2 + Ky**2                                               # Computes the norm of the Fourier vectors
     K_squared[0,0] = 1                                                      # Avoid singularities
     g = fftn(field_4)                                                       # Fourier transform of the field
-    ft = g/K_squared                                                        # Compute the laplacian in the fourier space
+    ft = 2*g/(K_squared)                                                        # Compute the laplacian in the fourier space
     f = np.real(ifftn(ft))[Npad2:-Npad2,Npad1:-Npad1]                       # Returns the solution of the poisson equation, slices the padding
     return -f
 def grad(f, dx1 , dx2):                                                       # Computes the gradient using centered finite differences and ghost points: Returns two arrays (N1-2, N2-2)

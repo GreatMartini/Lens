@@ -14,7 +14,7 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     X2 = lens1.x2
     dx1 = lens1.dx1                                                                                     # We extract the dsteps
     dx2 = lens1.dx2                                                                                     # Same
-    psi = poisson(2*iso, X1, X2, dx1, dx2)                                                              # Delta Psi = 2k = 2(Surface_density/Critical_surface_density)
+    psi = poisson(iso, X1, X2, dx1, dx2)                                                              # Delta Psi = 2k = 2(Surface_density/Critical_surface_density)
     alpha_1, alpha_2 = grad(psi, dx1, dx2)
     X1 = X1[1:-1, 1:-1] 
 
@@ -38,8 +38,6 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     roots = np.array(roots)
     _, unique = np.unique(roots.round(6), axis = 0, return_index=True)                                  # For our purpuse we clear the array of repeated values that are equal up to certain decimals
     roots = roots[unique]
-    #plt.scatter(roots[:,0],roots[:,1])
-    #plt.show()
     physical_roots = roots*xi_0                                                                         # We rescale the lens positions to their physical values
 
     # Supposing that each node on the cell represents the central value of a pixel:
@@ -51,8 +49,9 @@ def Generate(xs0, ys0, Sigma, f, save = True):
         j0 = int(roots[i,1]//dx2+(N//2)-1)                                                              # Compute the index of the lower y bound of the interpolated coordinates
         image[i0,j0] = 1
     ix1, ix2 = (X1[0,:-1]+1/2*dx1)*xi_0, (X2[:-1,0]+1/2*dx2)*xi_0                                       # We rescale the coordinates and center them in the pixels
+                                   
     if (save == True):    
-        hf = h5py.File('../output/Lens1.hdf5', 'w')                                                                    # We save the file with the data
+        hf = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens2.hdf5', 'w')                                                                    # We save the file with the data
         hf.create_dataset("Image", data = image)
         coordinates = hf.create_group("Coordinates")
         coordinates.create_dataset("x1", data = ix1)

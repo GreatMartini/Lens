@@ -1,6 +1,5 @@
-import sys
 import os
-sys.path.append("../")
+import sys
 from src.calculus import *
 from src.construct import *
 from src.gen_params import *
