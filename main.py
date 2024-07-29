@@ -1,3 +1,10 @@
+""" Main module: runs the code
+
+Parameters:
+-----------
+sys.argv : string
+    G to generate, GR to generate and reconstruct the lens parameters, other to abort.
+"""
 import os
 import sys
 from src.calculus import *

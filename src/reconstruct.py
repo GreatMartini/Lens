@@ -14,7 +14,7 @@ def Metropolis():
     params : 1darray
         Containing the estimated values of the dispersion velocity and ellipticity.
     """
-    f_0, sigma_0 = 0.5, 0.5                                     # Initial choises for the parameters                                                 
+    f_0, sigma_0 = 0.8, 0.9                                     # Initial choises for the parameters                                                 
     theta_init = np.array([sigma_0, f_0])                       # Array storing the initial choises
 
     x1 = np.linspace(-40, 40, 2000)                             # New coordinates

@@ -12,7 +12,8 @@ documentation for details.
 
 
 .. toctree::
+   readme_link
+   modules
    :maxdepth: 2
    :caption: Contents:
 
-   modules
