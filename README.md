@@ -78,5 +78,7 @@ parameters go to gen_params.py and modify them. The dispersion velocity
 and the ellipticity are both set to 1, 1 in order to run the tests. 
 But they can be set to random, the code is written for the dispersion
 velocity to be set between 0 and 5 and, the ellipticity between 0 
-(excluded) and 1 (included).
+(excluded) and 1 (included). It is also necessary to change the writting
+and reading paths of the output files in src.generate.py and src.reconstruct.py.
+
 

@@ -3,7 +3,8 @@
 Parameters:
 -----------
 sys.argv : string
-    G to generate, GR to generate and reconstruct the lens parameters, other to abort.
+    G to generate, GR to generate and reconstruct the lens parameters, other to abort. To reconstruct
+    it will be necessary to change the path to the output files in src.reconstruct.py and in src.generate.py
 """
 import os
 import sys

@@ -130,10 +130,11 @@ enter GR if you want to generate the reconstruct the lens or, enter any
 other key to abort. To generate without saving the file specify in the
 arguments of src.generate.Generate(save == False). To modify the lens
 parameters go to gen_params.py and modify them. The dispersion velocity
-and the ellipticity are both set to 0.5, 0.5 in order to run the tests.
+and the ellipticity are both set to 1, 1 in order to run the tests.
 But they can be set to random, the code is written for the dispersion
 velocity to be set between 0 and 5 and, the ellipticity between 0
-(excluded) and 1 (included).</p>
+(excluded) and 1 (included). It is also necessary to change the writting
+and reading paths of the output files in src.generate.py and src.reconstruct.py.</p>
 </section>
 </section>
 
