@@ -464,12 +464,48 @@ of the isothermal gravitational potential.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.acceptance">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">acceptance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.acceptance" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the accetance.</p>
+<section id="id19">
+<h3>Parameters:<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>post_prime<span class="classifier">float</span></dt><dd><p>Logarithm of the posterior distribution of the second set of parameters</p>
+</dd>
+<dt>post<span class="classifier">float</span></dt><dd><p>Logarithm of the posterior distribution of the first set of parameters</p>
+</dd>
+</dl>
+</section>
+<section id="id20">
+<h3>Returns:<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>acc<span class="classifier">float</span></dt><dd><p>Difference between the posteriors (logarithm of the acceptance)</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.alpha_test">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">alpha_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.alpha_test" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the accetance test.</p>
+<section id="id21">
+<h3>Parameters:<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>acc<span class="classifier">float</span></dt><dd><p>Logarithm of the acceptance.</p>
+</dd>
+<dt>theta_prime<span class="classifier">1darray</span></dt><dd><p>Second set of parameters</p>
+</dd>
+<dt>theta<span class="classifier">1darray</span></dt><dd><p>First set of parameters</p>
+</dd>
+</dl>
+</section>
+<section id="id22">
+<h3>Returns:<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>params<span class="classifier">1darray</span></dt><dd><p>The set of parameters most likely to be the true ones based on the acceptance test.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.cost_function">
@@ -478,8 +514,8 @@ of the isothermal gravitational potential.</p>
 The cost function is evaluated with the norm of the distance between the real and predicted
 positions of the images. In further development we could implement two cost functions one for each component
 of the distances.</p>
-<section id="id19">
-<h3>Parameters:<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<section id="id23">
+<h3>Parameters:<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>lens_pos<span class="classifier">2darray</span></dt><dd><p>Coordinates of the observed images.</p>
 </dd>
@@ -487,8 +523,8 @@ of the distances.</p>
 </dd>
 </dl>
 </section>
-<section id="id20">
-<h3>Returns:<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<section id="id24">
+<h3>Returns:<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>Chi2<span class="classifier">float</span></dt><dd><p>Cost function.</p>
 </dd>
@@ -500,8 +536,8 @@ of the distances.</p>
 <dt class="sig sig-object py" id="src.statfunc.lens_solve">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">lens_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.lens_solve" title="Link to this definition">¶</a></dt>
 <dd><p>Solves the lens equation with the specified parameters.</p>
-<section id="id21">
-<h3>Parameters:<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<section id="id25">
+<h3>Parameters:<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>theta_init: 1darray</dt><dd><p>Velocity dispersion and ellipticity of the lens.</p>
 </dd>
@@ -521,8 +557,8 @@ of the distances.</p>
 </dd>
 </dl>
 </section>
-<section id="id22">
-<h3>Returns:<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<section id="id26">
+<h3>Returns:<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>roots<span class="classifier">2darray</span></dt><dd><p>Contains the roots of the lens equations.</p>
 </dd>
@@ -533,24 +569,73 @@ of the distances.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.log_likelihood">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">log_likelihood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chi2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.log_likelihood" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the logarithm of the likelihood.</p>
+<section id="id27">
+<h3>Parameters:<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>chi2<span class="classifier">float</span></dt><dd><p>Cost function.</p>
+</dd>
+</dl>
+</section>
+<section id="id28">
+<h3>Returns:<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>log_likelihood<span class="classifier">float</span></dt><dd><p>Logarithm of the likelihood</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.log_posterior">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">log_posterior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">like</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.log_posterior" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the logarithm of the posterior distribution.</p>
+<section id="id29">
+<h3>Parameters:<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>like<span class="classifier">float</span></dt><dd><p>Logarithm of the likelihood.</p>
+</dd>
+<dt>prior<span class="classifier">float</span></dt><dd><p>Logarithm of the prior distribution.</p>
+</dd>
+</dl>
+</section>
+<section id="id30">
+<h3>Returns:<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>log_posterior<span class="classifier">float</span></dt><dd><p>Logarithm of the posterior distribution.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.log_prior">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">log_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.log_prior" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the logarithm of the prior.</p>
+<section id="id31">
+<h3>Parameters:<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>theta<span class="classifier">1darray</span></dt><dd><p>The dispersion velocity and ellipticity.</p>
+</dd>
+</dl>
+</section>
+<section id="id32">
+<h3>Returns:<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>surf_dens<span class="classifier">2darray</span></dt><dd><p>Non-reduced isothermal surface density.</p>
+</dd>
+<dt>prior<span class="classifier">float</span></dt><dd><p>Joint prior distribution for the two parameters</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.map_lens">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">map_lens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.map_lens" title="Link to this definition">¶</a></dt>
 <dd><p>Lens equations, we want them to be 0 at the positions of the formed images.</p>
-<section id="id23">
-<h3>Parameters:<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<section id="id33">
+<h3>Parameters:<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>x1<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-major axis.</p>
 </dd>
@@ -566,8 +651,8 @@ of the distances.</p>
 </dd>
 </dl>
 </section>
-<section id="id24">
-<h3>Returns:<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<section id="id34">
+<h3>Returns:<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>eq1, eq2<span class="classifier">2darrays</span></dt><dd><p>Components of the lens equation evaluated over the grid.</p>
 </dd>
@@ -579,8 +664,8 @@ of the distances.</p>
 <dt class="sig sig-object py" id="src.statfunc.map_source">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">map_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.map_source" title="Link to this definition">¶</a></dt>
 <dd><p>Maps the images on the lens plane to the source plane.</p>
-<section id="id25">
-<h3>Parameters:<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<section id="id35">
+<h3>Parameters:<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>x1<span class="classifier">1darray</span></dt><dd><p>Image coordinates of the semi-major axis.</p>
 </dd>
@@ -592,8 +677,8 @@ of the distances.</p>
 </dd>
 </dl>
 </section>
-<section id="id26">
-<h3>Returns:<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<section id="id36">
+<h3>Returns:<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>mean(eta1), mean(eta2)<span class="classifier">floats</span></dt><dd><p>Reeduced mean coordinates of the predicted source.</p>
 </dd>
@@ -605,8 +690,8 @@ of the distances.</p>
 <dt class="sig sig-object py" id="src.statfunc.surf_dens">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">surf_dens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.surf_dens" title="Link to this definition">¶</a></dt>
 <dd><p>Computes the non-reduced isothermal surface density.</p>
-<section id="id27">
-<h3>Parameters:<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<section id="id37">
+<h3>Parameters:<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>sigma<span class="classifier">float</span></dt><dd><p>Dispersion velocity of the isothermal surface density.</p>
 </dd>
@@ -620,8 +705,8 @@ of the distances.</p>
 </dd>
 </dl>
 </section>
-<section id="id28">
-<h3>Returns:<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<section id="id38">
+<h3>Returns:<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>surf_dens<span class="classifier">2darray</span></dt><dd><p>Non-reduced isothermal surface density.</p>
 </dd>
@@ -632,7 +717,22 @@ of the distances.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.statfunc.theta_prime">
 <span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">theta_prime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.theta_prime" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the accetance test.</p>
+<section id="id39">
+<h3>Parameters:<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>theta<span class="classifier">1darray</span></dt><dd><p>First set of parameters</p>
+</dd>
+</dl>
+</section>
+<section id="id40">
+<h3>Returns:<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>t<span class="classifier">1darray</span></dt><dd><p>Second set of parameters obtained from the normal distribution centered on the first set of parameters.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
 
 </section>
 <section id="module-src">

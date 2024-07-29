@@ -228,7 +228,7 @@ def log_prior(theta):
         Non-reduced isothermal surface density.
     prior : float
         Joint prior distribution for the two parameters
-        
+
     """     
     prior1 = uniform.pdf(theta[0],0,5.5)
     prior2 = uniform.pdf(theta[1],0.00001, 1.00001)
@@ -279,7 +279,7 @@ def log_posterior(like, prior):
 
 
 def acceptance(post_prime, post):
-   """  Computes the accetance. 
+    """  Computes the accetance. 
     
     Parameters:
     ------------
@@ -300,7 +300,7 @@ def acceptance(post_prime, post):
 
 
 def alpha_test(acc, theta_prime, theta):
-   """  Computes the accetance test. 
+    """  Computes the accetance test. 
     
     Parameters:
     ------------
@@ -327,7 +327,7 @@ def alpha_test(acc, theta_prime, theta):
 
 
 def theta_prime(theta):
-   """  Computes the accetance test. 
+    """  Computes the accetance test. 
     
     Parameters:
     ------------
