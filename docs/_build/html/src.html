@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src package &#8212; Mass distribution recostruction code for strong gravitational lensing N/A documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=0200cdce"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tests package" href="tests.html" />
+    <link rel="prev" title="main module" href="main.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="src-package">
+<h1>src package<a class="headerlink" href="#src-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-src.calculus">
+<span id="src-calculus-module"></span><h2>src.calculus module<a class="headerlink" href="#module-src.calculus" title="Link to this heading">¶</a></h2>
+<p>Module containing the mathematical functions for derivative computations, interpolations and root finding.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.calculus.divergence">
+<span class="sig-prename descclassname"><span class="pre">src.calculus.</span></span><span class="sig-name descname"><span class="pre">divergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.calculus.divergence" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the divergence of a vector field over a grid using finite differences and ghost points.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>f1<span class="classifier">2darray</span></dt><dd><p>First components of the vector field over the grid.</p>
+</dd>
+<dt>f2<span class="classifier">2darray</span></dt><dd><p>Second components of the vector field over the grid.</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Step size along the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Step size along the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>f<span class="classifier">2darray</span></dt><dd><p>The divergence of the vector field over the grid. The resulting array will have dimension (N1-2)*(N2-2)
+where, N1 and N2 are the number of points along the axis of the original array.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.calculus.grad">
+<span class="sig-prename descclassname"><span class="pre">src.calculus.</span></span><span class="sig-name descname"><span class="pre">grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.calculus.grad" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the gradient using centered finite differences and ghost points</p>
+<section id="id1">
+<h3>Parameters:<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>f<span class="classifier">2darray</span></dt><dd><p>Scalar field of which we want to compute the gradient.</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Step size along the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Step size along the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h3>Returns:<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>f_x, f_y<span class="classifier">2darrays</span></dt><dd><p>2D arrays corresponding to the gradient evaluated over the grid for each coordinate. The
+arrays will have a shape (N1-2)*(N2-2) each where, N1 and N2 are the number of points along
+the axis of the original array.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.calculus.interpolate2">
+<span class="sig-prename descclassname"><span class="pre">src.calculus.</span></span><span class="sig-name descname"><span class="pre">interpolate2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.calculus.interpolate2" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the cubic interpolation of a scalar function defined over a grid</p>
+<section id="id3">
+<h3>Parameters:<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>x_inter<span class="classifier">float</span></dt><dd><p>First coordinate of the interpolation point.</p>
+</dd>
+<dt>y_inter<span class="classifier">float</span></dt><dd><p>Second coordinate of the interpolation point.</p>
+</dd>
+<dt>field<span class="classifier">2darray</span></dt><dd><p>Field to be interpolated.</p>
+</dd>
+<dt>x<span class="classifier">1darray</span></dt><dd><p>Coordinates of the semi-major axis.</p>
+</dd>
+<dt>y<span class="classifier">1darray</span></dt><dd><p>Coordinates of the semi-minor axis.</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Step size along the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Step size along the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h3>Returns:<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>inter<span class="classifier">float</span></dt><dd><p>Interpolated value of the field at the specified interpolation coordinates.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.calculus.poisson">
+<span class="sig-prename descclassname"><span class="pre">src.calculus.</span></span><span class="sig-name descname"><span class="pre">poisson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.calculus.poisson" title="Link to this definition">¶</a></dt>
+<dd><p>Solves the poissson equation via the fourier transform</p>
+<section id="id5">
+<h3>Parameters:<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>field<span class="classifier">2darray</span></dt><dd><p>Scalar field over which we want to solve the poisson equation.</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Step size along the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Step size along the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>Returns:<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>f<span class="classifier">2darray</span></dt><dd><p>Scalar solution of the poisson equation over a grid of the same size as the field argument.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.calculus.root_find">
+<span class="sig-prename descclassname"><span class="pre">src.calculus.</span></span><span class="sig-name descname"><span class="pre">root_find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jxy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jyx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jyy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.calculus.root_find" title="Link to this definition">¶</a></dt>
+<dd><p>Root finding algorithm for a vector field over a grid using the Newton-Raphson method.</p>
+<section id="id7">
+<h3>Parameters:<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>p0<span class="classifier">[px, py] 1darray</span></dt><dd><p>Coordinates of the initial guess.</p>
+</dd>
+<dt>fx<span class="classifier">2darray</span></dt><dd><p>First components of the vector field over the grid.</p>
+</dd>
+<dt>fy<span class="classifier">2darray</span></dt><dd><p>Second components of the vector field over the grid.</p>
+</dd>
+<dt>J_xx, Jxy, Jyx, Jyy<span class="classifier">2darrays</span></dt><dd><p>Arrays containing the evaluated components of the vector field’s jacobian over the grid.</p>
+</dd>
+<dt>X1<span class="classifier">1darray</span></dt><dd><p>Coordinates of the semi-minor axis.</p>
+</dd>
+<dt>X2<span class="classifier">1darray</span></dt><dd><p>Coordinates of the semi-minor axis.</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Step size along the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Step size along the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h3>Returns:<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>p0<span class="classifier">list</span></dt><dd><p>Coordinates of the roots of the vector field.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-src.construct">
+<span id="src-construct-module"></span><h2>src.construct module<a class="headerlink" href="#module-src.construct" title="Link to this heading">¶</a></h2>
+<p>Module containing the classes. The classes are one for the source (point-like only at this stage of development) and for the lens
+(isothermal only at this stage of development).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.construct.lens">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.construct.</span></span><span class="sig-name descname"><span class="pre">lens</span></span><a class="headerlink" href="#src.construct.lens" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a the mass distribution of a gravitational lens</p>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>x0<span class="classifier">float, 1darray</span></dt><dd><p>Coordinates of the source on the semi-major axis, float if point-like and array if extended source.</p>
+</dd>
+<dt>y0<span class="classifier">float, 1darray</span></dt><dd><p>Coordinates of the source on the semi-minor axis, float if point-like and array if extended source.</p>
+</dd>
+<dt>z0<span class="classifier">float</span></dt><dd><p>Coordinate of the source plane on the orthogonal axis to the source and lens planes.</p>
+</dd>
+<dt>x1<span class="classifier">2darray</span></dt><dd><p>Contains the coordinates of the semi-major axis over the grid.</p>
+</dd>
+<dt>x2<span class="classifier">2darray</span></dt><dd><p>Contains the coordinates of the semi-minor axis over the grid.</p>
+</dd>
+<dt>density_surf<span class="classifier">2darray</span></dt><dd><p>Contains the grid values of the reduced isothermal surface density. (Only isothermal density profiles are allowed at this stage of the development)</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Spatial step in the direction of the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Spatial step in the direction of the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>build_mesh() :</dt><dd><p>Creates the coordinate meshgrid.</p>
+</dd>
+<dt>NIE():</dt><dd><p>Creates a non-singular isothermal elliptic surface density.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.construct.lens.NIE">
+<span class="sig-name descname"><span class="pre">NIE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.construct.lens.NIE" title="Link to this definition">¶</a></dt>
+<dd><section id="id9">
+<h4>Parameters:<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>X1, X2<span class="classifier">2darrays</span></dt><dd><p>Meshgrid containing the coordinates of the axes.</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h4>Returns:<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
+<blockquote>
+<div><p>dens : Non-singular isothermal reduced surface density.</p>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.construct.lens.build_mesh">
+<span class="sig-name descname"><span class="pre">build_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.construct.lens.build_mesh" title="Link to this definition">¶</a></dt>
+<dd><section id="id11">
+<h4>Returns:<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>X1, X2<span class="classifier">2darrays</span></dt><dd><p>Meshgrid containing the coordinates of the axes.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.construct.source">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.construct.</span></span><span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extended</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.construct.source" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing a source</p>
+<section id="id12">
+<h3>Parameters:<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>extended = False<span class="classifier">bool</span></dt><dd><p>If True the source is taken to be extended if False the source is point-like
+(At this stage of the development only point-like sources are allowed).</p>
+</dd>
+<dt>r<span class="classifier">float</span></dt><dd><p>Radius of the extended source.</p>
+</dd>
+<dt>N<span class="classifier">float</span></dt><dd><p>Number of points of the extended source</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h3>Attributes:<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>x<span class="classifier">float, 1darray</span></dt><dd><p>Coordinates of the source on the semi-major axis, float if point-like and array if extended source.</p>
+</dd>
+<dt>y<span class="classifier">float, 1darray</span></dt><dd><p>Coordinates of the source on the semi-minor axis, float if point-like and array if extended source.</p>
+</dd>
+<dt>z<span class="classifier">float</span></dt><dd><p>Coordinate of the source plane on the orthogonal axis to the source and lens planes.</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h3>Methods:<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>construct(r, N) :</dt><dd><p>Constructs an extended source with the specified radius and number of points.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.construct.source.construct">
+<span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.construct.source.construct" title="Link to this definition">¶</a></dt>
+<dd><section id="id15">
+<h4>Parameters:<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>r<span class="classifier">float</span></dt><dd><p>Radius of the extended source.</p>
+</dd>
+<dt>N<span class="classifier">float</span></dt><dd><p>Number of points of the extended source</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-src.gen_params">
+<span id="src-gen-params-module"></span><h2>src.gen_params module<a class="headerlink" href="#module-src.gen_params" title="Link to this heading">¶</a></h2>
+<p>Parameter file for the initial image generation from an isothermal projected mass distribution</p>
+<section id="source-parameters">
+<h3>Source Parameters:<a class="headerlink" href="#source-parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>zs0<span class="classifier">float</span></dt><dd><p>Coordinate of the source plane on the axis orthogonal to both the source’s and the lens’ plane.</p>
+</dd>
+<dt>xs0<span class="classifier">float</span></dt><dd><p>Coordinate of the point-like source in the semi-major axis.</p>
+</dd>
+<dt>ys0<span class="classifier">float</span></dt><dd><p>Coordinate of the point-like source in the semi-minor axis.</p>
+</dd>
+</dl>
+</section>
+<section id="lens-parameters">
+<h3>Lens Parameters:<a class="headerlink" href="#lens-parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Sigma<span class="classifier">float</span></dt><dd><p>Dispersion velocity for the isothermal mass distribution.</p>
+</dd>
+<dt>f<span class="classifier">float</span></dt><dd><p>Ellipticity of the isothermal mass distribution, must be between (0,1].</p>
+</dd>
+<dt>Nx1, Nx2<span class="classifier">int</span></dt><dd><p>Number of grid points spanning the lens’ plane in the semi-major and semi-minor axis respectively, at this stage of the developpement must be odd
+and equal. The total number of grid points is Nx1*Nx2.</p>
+</dd>
+<dt>x1_l, x1_u<span class="classifier">float</span></dt><dd><p>Lower and upper boundaries for the semi-major axis respectively.</p>
+</dd>
+<dt>x2_l, x2_u<span class="classifier">float</span></dt><dd><p>Lower and upper boundaries for the semi-minor axis respectively.</p>
+</dd>
+<dt>N_ghost<span class="classifier">int</span></dt><dd><p>Number of ghost points on each side of the two axis. This allows to compute the finite differences derivatives without the use of boundary conditions (for the moment).
+At each derivative the size of resulting array will be reduced by 2 (1 point on each side) on each axis hence, the resulting size will be (N1-2)*(N2-2).</p>
+</dd>
+<dt>G<span class="classifier">float</span></dt><dd><p>Universal constant of gravitation. In natural units = 1.</p>
+</dd>
+<dt>c<span class="classifier">float</span></dt><dd><p>Speed of light in vacuum. In natural units = 1.</p>
+</dd>
+<dt>xl0<span class="classifier">float</span></dt><dd><p>Semi-major axis coordinate of the lens plane center.</p>
+</dd>
+<dt>yl0<span class="classifier">float</span></dt><dd><p>Semi-minor axis coordinate of the lens plane center.</p>
+</dd>
+<dt>zl0<span class="classifier">float</span></dt><dd><p>Coordinate of the lens plane center on the axis orthogonal to the source’s and lens’ planes.</p>
+</dd>
+</dl>
+</section>
+<section id="scale-parameters">
+<h3>Scale parameters:<a class="headerlink" href="#scale-parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>D_s<span class="classifier">float</span></dt><dd><p>Distance from the observer to the source plane.</p>
+</dd>
+<dt>D_l<span class="classifier">float</span></dt><dd><p>Distance from the observer to the lens plane.</p>
+</dd>
+<dt>D_ls<span class="classifier">float</span></dt><dd><p>Distance between the source and the lens planes.</p>
+</dd>
+<dt>xi_0<span class="classifier">float</span></dt><dd><p>Scale parameter for the coordinates on the lens plane.</p>
+</dd>
+<dt>eta_0<span class="classifier">float</span></dt><dd><p>Scale parameter for the coordinates on the source plane.</p>
+</dd>
+<dt>alpha_scale<span class="classifier">float</span></dt><dd><p>Scale paremeter for the angle of deviation.</p>
+</dd>
+<dt>dens_critic<span class="classifier">float</span></dt><dd><p>Critical density for the scaling of the 2-dimensional mass distribution.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="module-src.generate">
+<span id="src-generate-module"></span><h2>src.generate module<a class="headerlink" href="#module-src.generate" title="Link to this heading">¶</a></h2>
+<p>Module that generates the image data. The image data at this stage consists of a 2darray where
+1’s and 0’s are stored. The 1’s represent the locations where an image was formed on the lens plane and 0’s where there are
+no images. Associated with the image are the coordinate axes and the physical system’s information.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.generate.Generate">
+<span class="sig-prename descclassname"><span class="pre">src.generate.</span></span><span class="sig-name descname"><span class="pre">Generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xs0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ys0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.generate.Generate" title="Link to this definition">¶</a></dt>
+<dd><p>Solves the poissson equation via the fourier transform</p>
+<section id="id16">
+<h3>Parameters:<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>xs0<span class="classifier">float</span></dt><dd><p>Coordinate of the point-like source in the semi-major axis.</p>
+</dd>
+<dt>ys0<span class="classifier">float</span></dt><dd><p>Coordinate of the point-like source in the semi-minor axis.</p>
+</dd>
+<dt>Sigma<span class="classifier">float</span></dt><dd><p>Dispersion velocity of the isothermal potential.</p>
+</dd>
+<dt>f<span class="classifier">float</span></dt><dd><p>Ellipticity of the isothermal potential, between (0,1].</p>
+</dd>
+<dt>save<span class="classifier">bool</span></dt><dd><p>If true saves in a file the formed image with the system parameters, if false doesn’t write an output file.</p>
+</dd>
+</dl>
+</section>
+<section id="outputs">
+<h3>Outputs:<a class="headerlink" href="#outputs" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>file<span class="classifier">hdf5</span></dt><dd><p>File containing the source and lense parameters, the coordinates of the meshgrid and the image.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-src.rec_params">
+<span id="src-rec-params-module"></span><h2>src.rec_params module<a class="headerlink" href="#module-src.rec_params" title="Link to this heading">¶</a></h2>
+<p>Module that reads the parameters of the image file</p>
+<section id="id17">
+<h3>Parameters:<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>lens<span class="classifier">hdf5</span></dt><dd><p>Image file.</p>
+</dd>
+<dt>image<span class="classifier">2darray</span></dt><dd><p>Array containing 1’s and 0’s indicating where the images are formed.</p>
+</dd>
+<dt>coordinates<span class="classifier">hdf5 group</span></dt><dd><p>Contains the image’s coordinates.</p>
+</dd>
+<dt>x1_image, x2_image<span class="classifier">2darrays</span></dt><dd><p>Coordinates of the semi-major and semi-minor axes respectively.</p>
+</dd>
+<dt>D_L<span class="classifier">float</span></dt><dd><p>Distance to the lens plane.</p>
+</dd>
+<dt>D_S :float</dt><dd><p>Distance to the source plane.</p>
+</dd>
+<dt>D_LS<span class="classifier">float</span></dt><dd><p>Distance between the lens and the source plane.</p>
+</dd>
+<dt>xc<span class="classifier">float</span></dt><dd><p>Critical radius of the non-singulat isothermal potential.</p>
+</dd>
+<dt>dens_critic<span class="classifier">float</span></dt><dd><p>Critical surface density for the reduction of the non-singular isothermal surface density.</p>
+</dd>
+<dt>coord<span class="classifier">int</span></dt><dd><p>Argument of the positions of the formed images.</p>
+</dd>
+<dt>images_x1<span class="classifier">1darray</span></dt><dd><p>Contains the semi-major axis coordinates of the formed images.</p>
+</dd>
+<dt>images_x2<span class="classifier">1darray</span></dt><dd><p>Contains the semi-minor axis coordinates of the formed images.</p>
+</dd>
+<dt>images<span class="classifier">2darray</span></dt><dd><p>Contains the coordinates of the formed images.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="module-src.reconstruct">
+<span id="src-reconstruct-module"></span><h2>src.reconstruct module<a class="headerlink" href="#module-src.reconstruct" title="Link to this heading">¶</a></h2>
+<p>Module that reconstructs the parameters (velocity dispersion, ellipticity)of the isothermal gravitational potential
+via the metropolis-hastings algorithm.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.reconstruct.Metropolis">
+<span class="sig-prename descclassname"><span class="pre">src.reconstruct.</span></span><span class="sig-name descname"><span class="pre">Metropolis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.reconstruct.Metropolis" title="Link to this definition">¶</a></dt>
+<dd><p>Function that implements the metropolis-hastings algorithm to reconstruct the ellipticity and velocity dispersion
+of the isothermal gravitational potential.</p>
+<section id="id18">
+<h3>Returns:<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>params<span class="classifier">1darray</span></dt><dd><p>Containing the estimated values of the dispersion velocity and ellipticity.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-src.statfunc">
+<span id="src-statfunc-module"></span><h2>src.statfunc module<a class="headerlink" href="#module-src.statfunc" title="Link to this heading">¶</a></h2>
+<p>Module that contains the fuctions proper to the mass distribution reconstruction algorithm</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.acceptance">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">acceptance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.acceptance" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.alpha_test">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">alpha_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.alpha_test" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.cost_function">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">cost_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculated_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.cost_function" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the cost function in function of the predicted and real positions of the images.
+The cost function is evaluated with the norm of the distance between the real and predicted
+positions of the images. In further development we could implement two cost functions one for each component
+of the distances.</p>
+<section id="id19">
+<h3>Parameters:<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>lens_pos<span class="classifier">2darray</span></dt><dd><p>Coordinates of the observed images.</p>
+</dd>
+<dt>calculated_pos<span class="classifier">2darray</span></dt><dd><p>Coordinates of the predicted images.</p>
+</dd>
+</dl>
+</section>
+<section id="id20">
+<h3>Returns:<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Chi2<span class="classifier">float</span></dt><dd><p>Cost function.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.lens_solve">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">lens_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.lens_solve" title="Link to this definition">¶</a></dt>
+<dd><p>Solves the lens equation with the specified parameters.</p>
+<section id="id21">
+<h3>Parameters:<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>theta_init: 1darray</dt><dd><p>Velocity dispersion and ellipticity of the lens.</p>
+</dd>
+<dt>X1<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-major axis.</p>
+</dd>
+<dt>X2<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-minor axis.</p>
+</dd>
+<dt>alpha_1<span class="classifier">2darray</span></dt><dd><p>Semi-major axis components of the deviation angle evaluated over the grid.</p>
+</dd>
+<dt>alpha_2<span class="classifier">2darray</span></dt><dd><p>Semi-minor axis compoinets of the deviation angle evaluated over the grid.</p>
+</dd>
+<dt>dx1<span class="classifier">float</span></dt><dd><p>Step in the direction of the semi-major axis.</p>
+</dd>
+<dt>dx2<span class="classifier">float</span></dt><dd><p>Step in the direction of the semi-minor axis.</p>
+</dd>
+<dt>xc<span class="classifier">float</span></dt><dd><p>Critical radius of the isothermal potential.</p>
+</dd>
+</dl>
+</section>
+<section id="id22">
+<h3>Returns:<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>roots<span class="classifier">2darray</span></dt><dd><p>Contains the roots of the lens equations.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.log_likelihood">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">log_likelihood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chi2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.log_likelihood" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.log_posterior">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">log_posterior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">like</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.log_posterior" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.log_prior">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">log_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.log_prior" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.map_lens">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">map_lens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.map_lens" title="Link to this definition">¶</a></dt>
+<dd><p>Lens equations, we want them to be 0 at the positions of the formed images.</p>
+<section id="id23">
+<h3>Parameters:<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>x1<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-major axis.</p>
+</dd>
+<dt>x2<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-minor axis.</p>
+</dd>
+<dt>y1<span class="classifier">float</span></dt><dd><p>Semi-major axis coordinate of the source.</p>
+</dd>
+<dt>y2<span class="classifier">float</span></dt><dd><p>Semi-minor axis coordinate of the source.</p>
+</dd>
+<dt>alpha_1<span class="classifier">2darray</span></dt><dd><p>Semi-major axis components of the deviation angle evaluated over the grid.</p>
+</dd>
+<dt>alpha_2<span class="classifier">2darray</span></dt><dd><p>Semi-minor axis compoinets of the deviation angle evaluated over the grid.</p>
+</dd>
+</dl>
+</section>
+<section id="id24">
+<h3>Returns:<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>eq1, eq2<span class="classifier">2darrays</span></dt><dd><p>Components of the lens equation evaluated over the grid.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.map_source">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">map_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.map_source" title="Link to this definition">¶</a></dt>
+<dd><p>Maps the images on the lens plane to the source plane.</p>
+<section id="id25">
+<h3>Parameters:<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>x1<span class="classifier">1darray</span></dt><dd><p>Image coordinates of the semi-major axis.</p>
+</dd>
+<dt>x2<span class="classifier">1darray</span></dt><dd><p>Image coordinates of the semi-minor axis.</p>
+</dd>
+<dt>alpha_1<span class="classifier">1darray</span></dt><dd><p>Semi-major axis components of the deviation angle evaluated at the image positions.</p>
+</dd>
+<dt>alpha_2<span class="classifier">1darray</span></dt><dd><p>Semi-minor axis components of the deviation angle evaluated at the image positions.</p>
+</dd>
+</dl>
+</section>
+<section id="id26">
+<h3>Returns:<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>mean(eta1), mean(eta2)<span class="classifier">floats</span></dt><dd><p>Reeduced mean coordinates of the predicted source.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.surf_dens">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">surf_dens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.surf_dens" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the non-reduced isothermal surface density.</p>
+<section id="id27">
+<h3>Parameters:<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>sigma<span class="classifier">float</span></dt><dd><p>Dispersion velocity of the isothermal surface density.</p>
+</dd>
+<dt>f<span class="classifier">float</span></dt><dd><p>Step size along the semi-major axis.</p>
+</dd>
+<dt>x1<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-major axis.</p>
+</dd>
+<dt>x2<span class="classifier">2darray</span></dt><dd><p>Mesh coordinates of the semi-minor axis.</p>
+</dd>
+<dt>xc<span class="classifier">float</span></dt><dd><p>Critical radius of the isothermal potential.</p>
+</dd>
+</dl>
+</section>
+<section id="id28">
+<h3>Returns:<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>surf_dens<span class="classifier">2darray</span></dt><dd><p>Non-reduced isothermal surface density.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.statfunc.theta_prime">
+<span class="sig-prename descclassname"><span class="pre">src.statfunc.</span></span><span class="sig-name descname"><span class="pre">theta_prime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.statfunc.theta_prime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-src">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Mass distribution recostruction code for strong gravitational lensing</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Lensing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">src package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">tests package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Lensing</a><ul>
+      <li>Previous: <a href="main.html" title="previous chapter">main module</a></li>
+      <li>Next: <a href="tests.html" title="next chapter">tests package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Christophe Martini.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/src.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

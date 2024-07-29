@@ -1,10 +1,34 @@
-################################### Script that generates the image data ##################################
+""" Module that generates the image data. The image data at this stage consists of a 2darray where
+1's and 0's are stored. The 1's represent the locations where an image was formed on the lens plane and 0's where there are
+no images. Associated with the image are the coordinate axes and the physical system's information.
+"""
 from .construct import *
 from .calculus import *
 import h5py
 import matplotlib.pyplot as plt
 
 def Generate(xs0, ys0, Sigma, f, save = True):
+    """  Solves the poissson equation via the fourier transform 
+    
+    Parameters:
+    ------------
+    xs0 : float
+        Coordinate of the point-like source in the semi-major axis.
+    ys0 : float
+        Coordinate of the point-like source in the semi-minor axis.
+    Sigma : float
+        Dispersion velocity of the isothermal potential.
+    f : float
+        Ellipticity of the isothermal potential, between (0,1].
+    save : bool
+        If true saves in a file the formed image with the system parameters, if false doesn't write an output file.
+    
+    Outputs:
+    --------
+    file : hdf5
+        File containing the source and lense parameters, the coordinates of the meshgrid and the image.
+        
+    """
     star = source()                                                                                     # Build point source
     y1 = star.x                                                                                         # We extract the point coordinates
     y2 = star.y                                         
@@ -14,7 +38,7 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     X2 = lens1.x2
     dx1 = lens1.dx1                                                                                     # We extract the dsteps
     dx2 = lens1.dx2                                                                                     # Same
-    psi = poisson(iso, X1, X2, dx1, dx2)                                                              # Delta Psi = 2k = 2(Surface_density/Critical_surface_density)
+    psi = poisson(iso, X1, X2, dx1, dx2)                                                                # Delta Psi = 2k = 2(Surface_density/Critical_surface_density)
     alpha_1, alpha_2 = grad(psi, dx1, dx2)
     X1 = X1[1:-1, 1:-1] 
 
@@ -51,7 +75,7 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     ix1, ix2 = (X1[0,:-1]+1/2*dx1)*xi_0, (X2[:-1,0]+1/2*dx2)*xi_0                                       # We rescale the coordinates and center them in the pixels
                                    
     if (save == True):    
-        hf = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens2.hdf5', 'w')                                                                    # We save the file with the data
+        hf = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens2.hdf5', 'w')                    # We save the file with the data
         hf.create_dataset("Image", data = image)
         coordinates = hf.create_group("Coordinates")
         coordinates.create_dataset("x1", data = ix1)
@@ -74,5 +98,5 @@ def Generate(xs0, ys0, Sigma, f, save = True):
         system_parameters.attrs["Xi0"] = xi_0
         system_parameters.attrs["Eta0"] = eta_0
         system_parameters.attrs["Alpha_scale"] = alpha_scale
-        hf.close() # Cerramos el archivo
+        hf.close() 
 

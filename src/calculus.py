@@ -1,9 +1,27 @@
-############################### Mathematical functions for computations, interpolations and root finding ############################
+""" Module containing the mathematical functions for derivative computations, interpolations and root finding. """ 
 from scipy.fft import fftn, ifftn
 from .gen_params import *
 
 
+
 def poisson(field, x1, x2, dx1, dx2):                                       # Solves the Poisson equation using Fourier Transform and zero padding
+    """  Solves the poissson equation via the fourier transform 
+    
+    Parameters:
+    ------------
+    
+    field : 2darray
+        Scalar field over which we want to solve the poisson equation.
+    dx1 : float
+        Step size along the semi-major axis.
+    dx2 : float
+        Step size along the semi-minor axis.
+    
+    Returns:
+    --------
+    f : 2darray
+        Scalar solution of the poisson equation over a grid of the same size as the field argument.
+    """
     N1 = np.shape(field)[0] 
     N2 = np.shape(field)[0]
     Ntot1 = N1 #+ 2*N_ghost                                                 # We define the total number of points of the array                                                 
@@ -25,9 +43,31 @@ def poisson(field, x1, x2, dx1, dx2):                                       # So
     K_squared[0,0] = 1                                                      # Avoid singularities
     g = fftn(field_4)                                                       # Fourier transform of the field
     ft = 2*g/(K_squared)                                                        # Compute the laplacian in the fourier space
-    f = np.real(ifftn(ft))[Npad2:-Npad2,Npad1:-Npad1]                       # Returns the solution of the poisson equation, slices the padding
-    return -f
-def grad(f, dx1 , dx2):                                                       # Computes the gradient using centered finite differences and ghost points: Returns two arrays (N1-2, N2-2)
+    f = -np.real(ifftn(ft))[Npad2:-Npad2,Npad1:-Npad1]                       # Returns the solution of the poisson equation, slices the padding
+    return f
+
+
+def grad(f, dx1 , dx2):                                                     # Computes the gradient using centered finite differences and ghost points: Returns two arrays (N1-2, N2-2)
+    """ Computes the gradient using centered finite differences and ghost points 
+   
+    Parameters:
+    -----------
+
+    f : 2darray
+        Scalar field of which we want to compute the gradient.
+    dx1 : float
+        Step size along the semi-major axis.
+    dx2 : float
+        Step size along the semi-minor axis.
+    
+    Returns:
+    --------
+
+    f_x, f_y : 2darrays
+        2D arrays corresponding to the gradient evaluated over the grid for each coordinate. The
+        arrays will have a shape (N1-2)*(N2-2) each where, N1 and N2 are the number of points along
+        the axis of the original array.
+    """
     N = np.shape(f)[0]                                                      # Extract the shape of the mesh (squared) 
     sparseA = -np.eye(N,N,-1)+np.eye(N,N,1)                                 # Create first sparse band matrix
     sparseA[0, :] = 0                                                       # Set up boundaries
@@ -36,7 +76,31 @@ def grad(f, dx1 , dx2):                                                       # 
     f_x = 1/(2*dx1)*np.matmul(f, sparseB)                                   # Computes X term of the gradient
     f_y = 1/(2*dx2)*np.matmul(sparseA, f)                                   # Computes Y term of the gradient               
     return f_x[1:-1, 1:-1], f_y[1:-1, 1:-1]                                 # Returns gradient, sliced array
+
+
 def divergence(f_x, f_y, dx1, dx2):                                         # Compute the divergence using centered finit differences and ghost points: Returns one array (N1-2, N2-2)
+    
+    """ Computes the divergence of a vector field over a grid using finite differences and ghost points.
+   
+    Parameters:
+    -----------
+
+    f1 : 2darray
+        First components of the vector field over the grid.
+    f2 : 2darray
+        Second components of the vector field over the grid.
+    dx1 : float
+        Step size along the semi-major axis.
+    dx2 : float
+        Step size along the semi-minor axis.
+    
+    Returns:
+    --------
+    
+    f : 2darray
+        The divergence of the vector field over the grid. The resulting array will have dimension (N1-2)*(N2-2)
+        where, N1 and N2 are the number of points along the axis of the original array.
+    """   
     N = np.shape(f_x)[0]                                                    # Extract the shape of the mesh (squared)                                                  
     sparseA = -np.eye(N,N, -1)+np.eye(N,N,1)                                # Create first sparse band matrix
     sparseA[0, :] = 0                                                       # Set up boundaries
@@ -47,12 +111,40 @@ def divergence(f_x, f_y, dx1, dx2):                                         # Co
     ########### Intento con condiciones de frontera
     return (f_xx + f_yy)[1:-1,1:-1]                                         # Returns divergence, sliced array
 
+
 # In order to solve the lens equation we are going to use interpolation because:
 # 1. we don't wan't to create a model, we are going to reconstruct the model afterwards -> mantains unknown the parameters
 # 2. It ensures that all of the points of the simulated lens produce an effect on the images
 # 3. Diversity of numerical methods
 # We are going to use bicubic interpolation
-def interpolate2(x_inter, y_inter, field, x, y, dx1, dx2):                  # Bicubic interpolating function
+def interpolate2(x_inter, y_inter, field, x, y, dx1, dx2):              # Bicubic interpolating function
+    
+    """ Computes the cubic interpolation of a scalar function defined over a grid
+   
+    Parameters:
+    -----------
+
+    x_inter : float
+        First coordinate of the interpolation point.
+    y_inter : float
+        Second coordinate of the interpolation point.
+    field : 2darray
+        Field to be interpolated.
+    x : 1darray
+        Coordinates of the semi-major axis.
+    y : 1darray
+        Coordinates of the semi-minor axis.
+    dx1 : float
+        Step size along the semi-major axis.
+    dx2 : float
+        Step size along the semi-minor axis.
+    
+    Returns:
+    --------
+    
+    inter : float
+        Interpolated value of the field at the specified interpolation coordinates.        
+    """   
     N = np.shape(field)[0]                                              # Extract the number of points of the array (Squared array)
     i0 = int(x_inter//dx1+(N//2)-1)                                     # Compute the index of the lower X bound of the interpolated coordinates
     j0 = int(y_inter//dx2+(N//2)-1)                                     # Compute the index of the lower y bound of the interpolated coordinates
@@ -92,10 +184,40 @@ def interpolate2(x_inter, y_inter, field, x, y, dx1, dx2):                  # Bi
     X = np.array([1, x_inter, x_inter**2, x_inter**3])                  # Create the vector of the x coordinates to be interpolated
     Y = np.array([1, y_inter, y_inter**2, y_inter**3]).T                # Create the vector of the y coordinates to be interpolated
 
-    return np.matmul(Y, np.matmul(A, X))                                # Return interpolation
+    return np.matmul(Y, np.matmul(A, X))                                # Returns interpolation
+
+
 def root_find(p0,fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Newton's method for finding zeros
+    """ Root finding algorithm for a vector field over a grid using the Newton-Raphson method. 
+   
+    Parameters:
+    -----------
+
+    p0 : [px, py] 1darray
+        Coordinates of the initial guess.
+    fx : 2darray
+        First components of the vector field over the grid.
+    fy : 2darray
+        Second components of the vector field over the grid.
+    J_xx, Jxy, Jyx, Jyy : 2darrays
+        Arrays containing the evaluated components of the vector field's jacobian over the grid.
+    X1 : 1darray
+        Coordinates of the semi-minor axis.
+    X2 : 1darray
+        Coordinates of the semi-minor axis.
+    dx1 : float
+        Step size along the semi-major axis.
+    dx2 : float
+        Step size along the semi-minor axis.
+    
+    Returns:
+    --------
+    
+    p0 : list
+        Coordinates of the roots of the vector field.        
+    """   
     k = 0                                                                   # Security parameter for maximum iteration
-    epsilon = 0.00000001                                                        # Resolution for the 0's of the function
+    epsilon = 0.00000001                                                    # Resolution for the 0's of the function
     Jac = np.zeros((2,2))                                                   # Initialise the Jacobian
     F = np.ones((2,1))                                                      # Initialise the function
     p0 = np.array(p0)                                                       # Initialise the initial guess
