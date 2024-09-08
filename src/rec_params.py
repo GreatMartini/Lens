@@ -34,7 +34,7 @@ import numpy as np
 import h5py
 from .gen_params import G, c
 
-lens = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens2.hdf5', 'r')                      # Open the file (Change to your path)
+lens = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens_test.hdf5', 'r')                      # Open the file (Change to your path)
 image = np.array(lens["Image"])                                                                     # We get the image
 coordinates = lens["Coordinates"]                                                                   # Get the coordinates and store them
 x1_image = np.array(coordinates["x1"])

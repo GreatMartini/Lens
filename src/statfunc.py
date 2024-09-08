@@ -230,8 +230,8 @@ def log_prior(theta):
         Joint prior distribution for the two parameters
 
     """     
-    prior1 = uniform.pdf(theta[0],0,5.5)
-    prior2 = uniform.pdf(theta[1],0.00001, 1.00001)
+    prior1 = uniform.pdf(theta[0],0,5)
+    prior2 = uniform.pdf(theta[1],0.00001, 1.0000)
     if ((prior1!=0) & (prior2!=0)):
         return np.log(prior1)+np.log(prior2)
     else:
@@ -295,8 +295,10 @@ def acceptance(post_prime, post):
     acc : float
         Difference between the posteriors (logarithm of the acceptance)
     """  
-    
-    return post_prime-post
+    if (post_prime - post < 0):
+        return post_prime - post
+    else:
+        return 0
 
 
 def alpha_test(acc, theta_prime, theta):
@@ -319,7 +321,8 @@ def alpha_test(acc, theta_prime, theta):
         The set of parameters most likely to be the true ones based on the acceptance test.
 
     """  
-    logu = np.log(np.random.uniform(0,1))
+    logu = np.log(1-np.random.uniform(0,1))
+    # Si el ratio es mas grande que 1 tengo que elegir la acceptancia en 1
     if(acc >= logu):
         return theta_prime
     else:

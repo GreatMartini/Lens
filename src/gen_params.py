@@ -64,7 +64,7 @@ xs0 = 0
 ys0 = 0
 
 # Lens parameters
-Sigma = 1                                                                   #(1-np.random.rand())*5       # Cannot be 0        
+Sigma = 2.5                                                                   #(1-np.random.rand())*5       # Cannot be 0        
 f = 1                                                                       #1-np.random.rand()           # Cannot be 0
 # Lens' mesh parameters
 Nx1,  Nx2 = 1001, 1001                                                      # Number of points for the lens' domain in the principal and secondary axis, Array better be ood

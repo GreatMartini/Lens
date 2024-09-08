@@ -187,7 +187,7 @@ def interpolate2(x_inter, y_inter, field, x, y, dx1, dx2):              # Bicubi
     return np.matmul(Y, np.matmul(A, X))                                # Returns interpolation
 
 
-def root_find(p0,fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Newton's method for finding zeros
+def root_find(p0, fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Newton's method for finding zeros
     """ Root finding algorithm for a vector field over a grid using the Newton-Raphson method. 
    
     Parameters:
@@ -221,17 +221,20 @@ def root_find(p0,fx, fy, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2):             # Ne
     Jac = np.zeros((2,2))                                                   # Initialise the Jacobian
     F = np.ones((2,1))                                                      # Initialise the function
     p0 = np.array(p0)                                                       # Initialise the initial guess
-    while((np.linalg.norm(F) >= epsilon)):                                  # Start iteration using the norm of the function as a criteria
-        if(k <= 1000):                                                     # Set up the maximum iteration
-            if((p0[0]<=np.max(X1)) & (p0[0]>=np.min(X1)) & (p0[1]<=np.max(X2)) & (p0[1]>=np.min(X2))):
-                Jac[0,0] = interpolate2(p0[0], p0[1], Jxx, X1, X2, dx1, dx2)    # Compute the Jacobian at the guess 
-                Jac[0,1] = interpolate2(p0[0], p0[1], Jxy, X1, X2, dx1, dx2) 
-                Jac[1,0] = interpolate2(p0[0], p0[1], Jyx, X1, X2, dx1, dx2) 
-                Jac[1,1] = interpolate2(p0[0], p0[1], Jyy, X1, X2, dx1, dx2) 
-                F[0] = interpolate2(p0[0], p0[1], fx, X1, X2, dx1, dx2)         # Compute the function at the guess
-                F[1] = interpolate2(p0[0], p0[1], fy, X1, X2, dx1, dx2) 
-                J_inv = np.linalg.inv(Jac)                                      # Invert the Jacobian
-                p0 = (p0 - np.matmul(F.T, J_inv.T)).flatten()
+    while((F[0] >= epsilon) | (F[1] >= 0)):                                  # Start iteration using the norm of the function as a criteria        
+        if(k <= 10000):                                                     # Set up the maximum iteration
+            Jac[0,0] = interpolate2(p0[0], p0[1], Jxx, X1, X2, dx1, dx2)    # Compute the Jacobian at the guess 
+            Jac[0,1] = interpolate2(p0[0], p0[1], Jxy, X1, X2, dx1, dx2) 
+            Jac[1,0] = interpolate2(p0[0], p0[1], Jyx, X1, X2, dx1, dx2) 
+            Jac[1,1] = interpolate2(p0[0], p0[1], Jyy, X1, X2, dx1, dx2) 
+            F[0] = interpolate2(p0[0], p0[1], fx, X1, X2, dx1, dx2)         # Compute the function at the guess
+            F[1] = interpolate2(p0[0], p0[1], fy, X1, X2, dx1, dx2)
+            if (np.all(Jac) == 0):
+                J_inv = np.zeros((2,2))   
+            else:
+                J_inv = np.linalg.inv(Jac)
+            # Invert the Jacobian
+            p0 = (p0 - np.matmul(F.T, J_inv.T)).flatten()
         else:
             break
         k +=1

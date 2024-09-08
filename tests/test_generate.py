@@ -3,7 +3,7 @@ from src import gen_params
 def test_gen():
     epsilon = 0.3
     #Generate(0.5, 0.5, 1, 0, save = True)
-    lens = h5py.File("/Users/bach/Desktop/Lensing/Lensing/output/Lens2.hdf5", 'r')
+    lens = h5py.File("/Users/bach/Desktop/Lensing/Lensing/output/Lens_test.hdf5", 'r')
     image = lens["Image"]
 
     xi_0 = lens["System Parameters"].attrs["Xi0"]
@@ -25,10 +25,9 @@ def test_gen():
     pos = np.sqrt(np.array(pos1)**2 + np.array(pos2)**2)
     pos = np.unique(pos)
     solution = np.unique(solution)
-    for i in range(len(pos)-len(solution)):
+    for i in range(len(pos)-len(solution)): #?
         solution = np.append(solution, solution[1])
     solution.sort()
     pos.sort()
     for i in range(len(pos)):
         assert ((pos[i] <= solution[i] + epsilon) & (pos[i] >= solution[i] - epsilon))
-# Result is correct so even if the test doesn't cover the all the statements the function is covered

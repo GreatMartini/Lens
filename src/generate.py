@@ -53,14 +53,17 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     eq2 = eq2[1:-1, 1:-1]
     g = grad(eq1,dx1,dx2)[0]
 
-    pos = np.argwhere((abs(eq1) <= 0.03) & (abs(eq2) <= 0.03))                                          # Initial guesses for the arguments of the zeros of the lens equation
+    pos = np.argwhere((abs(eq1) <= 0.001) & (abs(eq2) <= 0.001))                                          # Initial guesses for the arguments of the zeros of the lens equation
     zeros1 = X1[pos[:,0], pos[:,1]]                                                                     # We get the positions corresponding to the zeros
     zeros2 = X2[pos[:,0], pos[:,1]]
     roots = []                                                                                          # Array storing the roots of the equations
     for i in range(len(zeros1)):
-        roots.append(root_find([zeros1[i], zeros2[i]], eq1, eq2, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2)) # We find the zeros with Newton's method and Bicubic interpolation
+        root = root_find([zeros1[i], zeros2[i]], eq1, eq2, Jxx, Jxy, Jyx, Jyy, X1, X2, dx1, dx2)
+        if ((root[0] <= np.max(X1)) & (root[0] >= np.min(X1)) & (root[1] <= np.max(X2)) & (root[1] >= np.min(X2))):
+            roots.append(root) # We find the zeros with Newton's method and Bicubic interpolation
     roots = np.array(roots)
-    _, unique = np.unique(roots.round(6), axis = 0, return_index=True)                                  # For our purpuse we clear the array of repeated values that are equal up to certain decimals
+    _, unique = np.unique(roots.round(7), axis = 0, return_index=True)                                  # For our purpuse we clear the array of repeated values that are equal up to certain decimals
+                                
     roots = roots[unique]
     physical_roots = roots*xi_0                                                                         # We rescale the lens positions to their physical values
 
@@ -75,7 +78,7 @@ def Generate(xs0, ys0, Sigma, f, save = True):
     ix1, ix2 = (X1[0,:-1]+1/2*dx1)*xi_0, (X2[:-1,0]+1/2*dx2)*xi_0                                       # We rescale the coordinates and center them in the pixels
                                    
     if (save == True):    
-        hf = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens2.hdf5', 'w')                    # We save the file with the data
+        hf = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens_test.hdf5', 'w')                    # We save the file with the data
         hf.create_dataset("Image", data = image)
         coordinates = hf.create_group("Coordinates")
         coordinates.create_dataset("x1", data = ix1)

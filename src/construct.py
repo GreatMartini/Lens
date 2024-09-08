@@ -134,7 +134,7 @@ class lens:                                                                 # Cr
             dens : Non-singular isothermal reduced surface density. 
 
         """ 
-        return (np.sqrt(f))/(np.sqrt(x1**2 + (f*x2)**2 + xc**2))               
+        return (np.sqrt(f))/(2*np.sqrt(x1**2 + (f*x2)**2 + xc**2))               
     def __init__(self):                                                     # Builds the lens
         self.x0 = xl0
         self.y0 = yl0
