@@ -1,7 +1,7 @@
 from src.generate import *
 from src import gen_params
 def test_gen():
-    epsilon = 0.3
+    epsilon = 0.09
     #Generate(0.5, 0.5, 1, 0, save = True)
     lens = h5py.File("/Users/bach/Desktop/Lensing/Lensing/output/Lens_test.hdf5", 'r')
     image = lens["Image"]

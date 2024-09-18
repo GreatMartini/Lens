@@ -16,6 +16,7 @@ def test_map_lens():
     y1, y2 = 1, 1
     alpha1, alpha2 = 0, 0
     eqs = map_lens(y1, y2, x1, x2, alpha1, alpha2)
+    print(eqs)
     assert np.all(eqs) == 0
 
 #### Arreglar lens solve
@@ -24,7 +25,7 @@ def test_cost_function():
     obs_pos = [[1, 1]]
     calculated_pos = [[1, 1]]
     cost = cost_function(obs_pos, calculated_pos)
-    print(cost)
+    #print(cost)
     assert cost == 0
 def test_log_prior():
     # Testear con randoms
