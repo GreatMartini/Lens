@@ -53,6 +53,7 @@ dens_critic = c**2/(4*np.pi*G)*D_S/(D_L*D_LS)
 coord = np.argwhere(image == 1)                                                                      # We extract the coordinates
 images_x1 = x1_image[coord[:,1]]                                                                     # Because the first axis changes over the columns
 images_x2 = x2_image[coord[:,0]]
+# Revisarrrrrrr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:::::::::::::::::::
 images = np.array([x1_image[coord[:,1]], x2_image[coord[:,0]]]).T
 
 ################################################################################
