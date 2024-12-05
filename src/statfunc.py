@@ -83,8 +83,8 @@ def map_lens(y1, y2, x1, x2, alpha_1, alpha_2):
         Components of the lens equation evaluated over the grid.
 
     """
-    eq1 = y1 - x1*D_S/D_L + alpha_1*D_LS
-    eq2 = y2 - x2*D_S/D_L + alpha_2*D_LS
+    eq1 = y1 - x1 + alpha_1
+    eq2 = y2 - x2 + alpha_2
     return eq1, eq2
 
 

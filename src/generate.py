@@ -75,7 +75,7 @@ def Generate(xs0, ys0, Sigma, f, save = True):
         i0 = int(roots[i,0]//dx1+(N//2)-1)                                                              # Compute the index of the lower X bound of the interpolated coordinates
         j0 = int(roots[i,1]//dx2+(N//2)-1)                                                              # Compute the index of the lower y bound of the interpolated coordinates
         image[i0,j0] = 1
-    ix1, ix2 = (X1[0,:-1]+1/2*dx1)*xi_0, (X2[:-1,0]+1/2*dx2)*xi_0                                       # We rescale the coordinates and center them in the pixels
+    ix1, ix2 = (X1[0,:-1]+1/2*dx1)*xi_0, (X2[:-1,0]+1/2*dx2)*xi_0                                     # We center the coordinates in the pixels
                                    
     if (save == True):    
         hf = h5py.File('/Users/bach/Desktop/Lensing/Lensing/output/Lens_test.hdf5', 'w')                    # We save the file with the data

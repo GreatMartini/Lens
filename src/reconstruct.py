@@ -24,7 +24,7 @@ def Metropolis():
     like = 5.0                                                  # Initial value for the logarithm of the likelihood (can be anything of big abs value)
     k = 0                                                       # Iteration parameter for stopping the algorithm
     while(np.abs(like) >= 0.1):
-        if (k<=1000):
+        if (k <= 1000):
             theta = theta_prime(theta_init)                         # Computes the values of the second set of parameters
             pos = lens_solve(theta_init, X1, X2, dx1, dx2, xc)      # Calculates the images' positions given the first set of parameters
             posp = lens_solve(theta, X1, X2, dx1, dx2, xc)          # Calculates the images's positions given the second set of parameters

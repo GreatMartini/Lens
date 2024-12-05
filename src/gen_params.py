@@ -82,7 +82,7 @@ D_s = zs0                                                                   # Di
 D_l = zl0                                                                   # Distance to the lens                                          
 D_ls = D_s-D_l                                                              # Distance between the lens and the source
 xi_0 = 4*np.pi*((Sigma/c)**2)*D_ls/D_s*D_l                                  # Scaling parameter: If we change it we will have to change the form of the isothermal potential
-eta_0 = D_l/(D_s*xi_0)                                                      # Scaling parameter
+eta_0 = xi_0*D_s/D_l#D_l/(D_s*xi_0)                                                      # Scaling parameter
 alpha_scale = D_ls*D_l/(D_s*xi_0)                                           # The scaling factor that is applied to alpha when the equation is adimensionated
 dens_critic = c**2/(4*np.pi*G)*D_s/(D_l*D_ls)
 
